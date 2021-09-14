@@ -16,10 +16,18 @@ function App() {
   const [cities, Cities] = useState(cityData)
 
   const stateHandler = (e) => {
-    alert()
+    console.log(e.target.value);
   }
   const selectChangeData = (e) => {
-    console.log(e.target.value);
+    const countryId = e.target.value;
+    const dummyArray = new Array;
+    for(let i = 0; i < states.length; i++) {
+      if(states[i].country_id == countryId ) {
+        dummyArray.push(states[i]);
+      }
+    }
+    setStates(dummyArray);
+    console.log(states);
   }
 
 
@@ -30,7 +38,9 @@ function App() {
           <select className="form-select" aria-label="Default select example" onChange={(e) => selectChangeData(e)}>
             <option>Select Country</option>
             { countries.map((country, index) => {
-              return <option id={country.id} value={country.name} key={country.id} onClick={() => stateHandler(country.id)}>{country.name}</option>
+              return <option value={country.id} key={country.id} onClick={(e) => stateHandler(e)}>
+                {country.name}
+              </option>
             })}
           </select>
         </div>        
