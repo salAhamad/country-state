@@ -13,21 +13,20 @@ function App() {
 
   const [countries, setCountries] = useState(countryData)
   const [states, setStates] = useState(stateData)
-  const [cities, Cities] = useState(cityData)
+  const [cities, setCities] = useState(cityData)
 
   const stateHandler = (e) => {
-    console.log(e.target.value);
-  }
-  const selectChangeData = (e) => {
     const countryId = e.target.value;
-    const dummyArray = new Array;
-    for(let i = 0; i < states.length; i++) {
-      if(states[i].country_id == countryId ) {
-        dummyArray.push(states[i]);
-      }
-    }
-    setStates(dummyArray);
-    console.log(states);
+    const fliteredStates = stateData.filter((e) =>{
+      return e.country_id === countryId;
+    })
+    setStates(fliteredStates);
+  }
+  const cityHandler = (e) => {
+    const stateId = e.target.id;
+    console.log(stateId);
+    const filteredCities = cityData.fliter(e => e.state_id === stateId )
+    // console.log(filteredCities);
   }
 
 
@@ -35,28 +34,38 @@ function App() {
     <div className="fieldContainer">
       <div className="row">
         <div className="col-4">
-          <select className="form-select" aria-label="Default select example" onChange={(e) => selectChangeData(e)}>
-            <option>Select Country</option>
-            { countries.map((country, index) => {
-              return <option value={country.id} key={country.id} onClick={(e) => stateHandler(e)}>
-                {country.name}
-              </option>
-            })}
-          </select>
+
+          <div className="itemListContainer">
+            <div className="slectedItem">
+              <span className="text">Text</span>
+              <i className="fas fa-angle-down"></i>
+            </div>
+            <ul className="itemList">
+              { countries.map(country => <li value={country.id} key={country.id} onClick={(e) => stateHandler(e)}>{country.name}</li>) }
+            </ul>
+          </div>
         </div>        
         <div className="col-4">
-          <select className="form-select" aria-label="Default select example">
-            <option>Select States</option>
-            {states.map((state, index) => <option value={state.state_code} key={state.id}>{state.name}</option> )}
-          </select>
-        </div>        
+          <div className="itemListContainer">
+              <div className="slectedItem">
+                <span className="text">Text</span>
+                <i className="fas fa-angle-down"></i>
+              </div>
+              <ul className="itemList">
+                { states.map(country => <li id={country.id} key={country.id} onClick={(e) => cityHandler(e)}>{country.name}</li> )}
+              </ul>
+            </div>
+        </div>
         <div className="col-4">
-          <select className="form-select" aria-label="Default select example">
-            <option>Open this select menu</option>
-            <option defaultValue="1">One</option>
-            <option defaultValue="2">Two</option>
-            <option defaultValue="3">Three</option>
-          </select>
+          <div className="itemListContainer">
+              <div className="slectedItem">
+                <span className="text">Text</span>
+                <i className="fas fa-angle-down"></i>
+              </div>
+              <ul className="itemList">
+                { cities.map(city => <li id={city.id} key={city.id}>{city.name}</li> )}
+              </ul>
+            </div>
         </div>        
       </div>
     </div>
