@@ -17,16 +17,15 @@ function App() {
 
   const stateHandler = (e) => {
     const countryId = e.target.value;
-    const fliteredStates = stateData.filter((e) =>{
-      return e.country_id === countryId;
-    })
+    const fliteredStates = stateData.filter((e) => e.country_id === countryId )
     setStates(fliteredStates);
   }
   const cityHandler = (e) => {
     const stateId = e.target.id;
     console.log(stateId);
-    const filteredCities = cityData.fliter(e => e.state_id === stateId )
-    // console.log(filteredCities);
+    const filteredCities = cityData.filter(e => e.state_id === stateId )
+    console.log(filteredCities);
+    // setCities(filteredCities)
   }
 
 
