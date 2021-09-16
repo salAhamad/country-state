@@ -12,20 +12,19 @@ import '../node_modules/bootstrap/dist/css/bootstrap.css'
 function App() {
 
   const [countries, setCountries] = useState(countryData)
-  const [states, setStates] = useState(stateData)
-  const [cities, setCities] = useState(cityData)
+  const [states, setStates] = useState([])
+  const [cities, setCities] = useState([])
 
   const stateHandler = (e) => {
     const countryId = e.target.value;
-    const fliteredStates = stateData.filter((e) => e.country_id === countryId )
+    const fliteredStates = stateData.filter(e => e.country_id == countryId )
     setStates(fliteredStates);
   }
   const cityHandler = (e) => {
-    const stateId = e.target.id;
-    console.log(stateId);
-    const filteredCities = cityData.filter(e => e.state_id === stateId )
+    const stateId = e.target.value;
+    const filteredCities = cityData.filter(e => e.state_id == stateId )
     console.log(filteredCities);
-    // setCities(filteredCities)
+    setCities(filteredCities)
   }
 
 
@@ -33,39 +32,23 @@ function App() {
     <div className="fieldContainer">
       <div className="row">
         <div className="col-4">
-
-          <div className="itemListContainer">
-            <div className="slectedItem">
-              <span className="text">Text</span>
-              <i className="fas fa-angle-down"></i>
-            </div>
-            <ul className="itemList">
-              { countries.map(country => <li value={country.id} key={country.id} onClick={(e) => stateHandler(e)}>{country.name}</li>) }
-            </ul>
-          </div>
+          <select className="form-select" onChange={(e) => stateHandler(e)}>
+            <option defaultValue>Select Country</option>
+            { countries.map(country => <option value={country.id} key={country.id}>{country.name}</option>) }
+          </select>
         </div>        
         <div className="col-4">
-          <div className="itemListContainer">
-              <div className="slectedItem">
-                <span className="text">Text</span>
-                <i className="fas fa-angle-down"></i>
-              </div>
-              <ul className="itemList">
-                { states.map(country => <li id={country.id} key={country.id} onClick={(e) => cityHandler(e)}>{country.name}</li> )}
-              </ul>
-            </div>
+          <select className="form-select" onClick={(e) => cityHandler(e)}>
+            <option defaultValue>Select Country</option>
+            { states.map(satate => <option value={satate.id} key={satate.id}>{satate.name}</option> )}
+          </select>
         </div>
         <div className="col-4">
-          <div className="itemListContainer">
-              <div className="slectedItem">
-                <span className="text">Text</span>
-                <i className="fas fa-angle-down"></i>
-              </div>
-              <ul className="itemList">
-                { cities.map(city => <li id={city.id} key={city.id}>{city.name}</li> )}
-              </ul>
-            </div>
-        </div>        
+          <select className="form-select">
+            <option defaultValue>Select Country</option>
+            { cities.map(city => <option id={city.id} key={city.id}>{city.name}</option> )}
+          </select>
+        </div>
       </div>
     </div>
   </section>
