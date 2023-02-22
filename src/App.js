@@ -23,8 +23,10 @@ function App() {
   const cityHandler = (e) => {
     const stateId = e.target.value;
     const filteredCities = cityData.filter(e => e.state_id == stateId )
-    console.log(filteredCities);
     setCities(filteredCities)
+  }
+  const commonFun = () => {
+
   }
 
 
